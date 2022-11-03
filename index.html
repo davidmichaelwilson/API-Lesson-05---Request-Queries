@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Main Page</title>
+</head>
+<body>
+  <div style="text-align: center;">
+    <h2>Pick a max number and take a guess!</h2>
+    <p id="yeet">Valid guesses include every integer from 1 until your number, inclusive. For instance, if you choose 3 as your max number, 1, 2, and 3 will all be valid guesses.</p>
+    <label>Max number</label>
+    <input placeholder="Max: " id="max"></input>
+
+    <label>Your guess</label>
+    <input placeholder="Guess: " id="guess"></input>
+
+    <button onclick="ButtonClicked()">Check it!</button>
+
+    <p id="result"></p>
+  
+  </div>
+  <script>
+    // Write your function below:
+    async function ButtonClicked() {
+      const userMax = document.getElementById("max").value
+      const userGuess = document.getElementById("guess").value
+      
+      if (userGuess > 0 && userGuess <= userMax) {
+        // const rawResponse = await fetch('/api/' + userMax + "/" + userGuess)
+        const rawResponse = await fetch('/api?max=' + userMax + "?guess=" + userGuess)
+        const boolJson = await rawResponse.json()
+  
+        if (boolJson === true) {
+          document.getElementById("result").innerText = "Congrats! You Got It Right!"
+        } else {
+          document.getElementById("result").innerText = "That's Incorrect. Try Again!"
+        }
+      } else {
+          document.getElementById("result").innerText = "That input is not valid!" 
+
+      }
+        
+      }
+      
+  
+    
+  </script>
+</body>
+</html>
